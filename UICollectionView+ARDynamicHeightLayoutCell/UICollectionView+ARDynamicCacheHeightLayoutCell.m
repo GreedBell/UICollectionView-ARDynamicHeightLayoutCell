@@ -21,26 +21,29 @@ typedef NS_ENUM(NSUInteger, ARDynamicSizeCaculateType) {
 
 +(void)load
 {
-    SEL selectors[] =
-    {@selector(registerNib:forCellWithReuseIdentifier:),
-        @selector(registerClass:forCellWithReuseIdentifier:),
-        @selector(reloadData),
-        @selector(reloadSections:),
-        @selector(deleteSections:),
-        @selector(moveSection:toSection:),
-        @selector(reloadItemsAtIndexPaths:),
-        @selector(deleteItemsAtIndexPaths:),
-        @selector(moveItemAtIndexPath:toIndexPath:)};
-    
-    for (int i = 0; i < sizeof(selectors)/sizeof(SEL); i++) {
-        SEL originalSelector = selectors[i];
-        SEL swizzledSelector = NSSelectorFromString([@"ar_" stringByAppendingString:NSStringFromSelector(originalSelector)]);
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        SEL selectors[] =
+        {@selector(registerNib:forCellWithReuseIdentifier:),
+            @selector(registerClass:forCellWithReuseIdentifier:),
+            @selector(reloadData),
+            @selector(reloadSections:),
+            @selector(deleteSections:),
+            @selector(moveSection:toSection:),
+            @selector(reloadItemsAtIndexPaths:),
+            @selector(deleteItemsAtIndexPaths:),
+            @selector(moveItemAtIndexPath:toIndexPath:)};
         
-        Method originalMethod = class_getInstanceMethod(self, originalSelector);
-        Method swizzledMethod = class_getInstanceMethod(self, swizzledSelector);
-        
-        method_exchangeImplementations(originalMethod, swizzledMethod);
-    }
+        for (int i = 0; i < sizeof(selectors)/sizeof(SEL); i++) {
+            SEL originalSelector = selectors[i];
+            SEL swizzledSelector = NSSelectorFromString([@"ar_" stringByAppendingString:NSStringFromSelector(originalSelector)]);
+            
+            Method originalMethod = class_getInstanceMethod(self, originalSelector);
+            Method swizzledMethod = class_getInstanceMethod(self, swizzledSelector);
+            
+            method_exchangeImplementations(originalMethod, swizzledMethod);
+        }
+    });
 }
 
 -(CGSize)ar_sizeForCellWithIdentifier:(NSString *)identifier indexPath:(NSIndexPath *)indexPath configuration:(void (^)(__kindof UICollectionViewCell *))configuration

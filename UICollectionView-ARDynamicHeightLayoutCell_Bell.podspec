@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "UICollectionView-ARDynamicHeightLayoutCell_Bell"
-  s.version      = "1.0.3"
+  s.version      = "1.0.4"
   s.summary      = "Automatically UICollectionViewCell size calculating."
 
   s.description  = <<-DESC
@@ -12,11 +12,11 @@ Pod::Spec.new do |s|
                    * Finally, don't worry about the indent, CocoaPods strips it!
                    DESC
 
-  s.homepage     = "https://github.com/zjr999/UICollectionView-ARDynamicHeightLayoutCell"
+  s.homepage     = "https://github.com/GreedBell/UICollectionView-ARDynamicHeightLayoutCell"
   s.license      = "MIT"
-  s.authors            = { "August" => "liupingwei30@gmail.com","Bell" => "zjr999@gmail.com" }
+  s.authors            = { "August" => "liupingwei30@gmail.com","Bell" => "bell@greedlab.com" }
   s.platform     = :ios
-  s.source       = { :git => "https://github.com/zjr999/UICollectionView-ARDynamicHeightLayoutCell.git", :tag => s.version }
+  s.source       = { :git => "https://github.com/GreedBell/UICollectionView-ARDynamicHeightLayoutCell.git", :tag => s.version }
   s.source_files  = "UICollectionView+ARDynamicHeightLayoutCell", "UICollectionView+ARDynamicHeightLayoutCell/**/*.{h,m}"
   s.exclude_files = "UICollectionView+ARDynamicHeightLayoutCell/Exclude"
   s.frameworks = "UIKit", "Foundation"
